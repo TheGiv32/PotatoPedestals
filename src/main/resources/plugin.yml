@@ -1,0 +1,14 @@
+name: PotatoPedestals
+version: ${version}
+main: org.potatodesigns.potatopedestals.PotatoPedestals
+api-version: '1.21'
+description: Place item displays on configurable pedestal blocks.
+softdepend: [ItemsAdder, Nexo, CraftEngine, WorldGuard, PlaceholderAPI]
+commands:
+  ppedestals:
+    description: Give configured pedestals or reload the plugin
+    usage: /ppedestals give <pedestal> [player] [amount] | /ppedestals reload
+    permission: potatopedestals.admin
+permissions:
+  potatopedestals.admin:
+    default: op

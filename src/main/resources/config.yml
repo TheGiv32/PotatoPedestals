@@ -1,0 +1,119 @@
+# Configuration schema version. The plugin migrates older configs automatically,
+# adds missing defaults and comments, and keeps existing user values.
+config-version: 16
+
+integrations:
+  worldguard:
+    enabled: true
+    check-use: true
+    check-break: true
+
+# Pedestals are removed with the GUI button, which returns the base and contents to inventory.
+behavior:
+  # Prevent pedestal items obtained by command or the GUI removal button from being used in recipes.
+  prevent-pedestal-crafting: true
+
+# Every key under pedestals is an id accepted by /ppedestals give.
+# provider: vanilla | itemsadder | nexo | craftengine
+# type: block | furniture | shelf (shelf supports 1-4 GUI slots)
+# display-height-offset is supported by all pedestal types and adjusts the shown item vertically.
+# display-scale is supported by all pedestal types; shelf keeps its own scale value.
+pedestals:
+  diamond:
+    provider: vanilla
+    type: block
+    material: DIAMOND_BLOCK
+    gui-title: "<gold>Pedestal</gold>"
+    gui-slot: 4
+    display-height-offset: 0.0 # Vertical adjustment for the displayed item; negative lowers it.
+    display-scale: 1.0 # Object scale for every non-shelf pedestal type.
+    # MiniMessage is supported in the display name and each lore line.
+    name: "<gradient:#b9f2ff:#4fc3f7>Diamond Pedestal</gradient>"
+    lore:
+      - "<gray>Decorative pedestal</gray>"
+      - "<gold>Right-click to place or collect an item</gold>"
+    # Tooltip style resource key. Provide a style registered by a resource pack/datapack.
+    # Example: mynamespace:pedestal
+    # tooltip-style: "mynamespace:pedestal"
+
+  # ItemsAdder custom block example. Use the namespace:id shown in ItemsAdder.
+  # itemsadder_block:
+  #   provider: itemsadder
+  #   type: block
+  #   id: mynamespace:marble_block
+  #   material: NOTE_BLOCK # optional fallback/carrier used for detection and giving
+  #   gui-title: "<gold>Pedestal</gold>"
+  #   gui-slot: 4
+  #   display-height-offset: 0.0
+  #   display-scale: 1.0
+  #   name: "<aqua>Marble Pedestal</aqua>"
+  #   lore: ["<gray>A custom block base</gray>"]
+  #   tooltip-style: "mynamespace:pedestal"
+
+  # ItemsAdder furniture example. The id comes from ItemsAdder's furniture interaction event.
+  # The furniture definition in ItemsAdder must be solid: true to receive interaction events.
+  # itemsadder_furniture:
+  #   provider: itemsadder
+  #   type: furniture
+  #   id: mynamespace:display_stand
+  #   gui-title: "<gold>Pedestal</gold>"
+  #   gui-slot: 4
+  #   display-height-offset: 0.0
+  #   display-scale: 1.0
+
+  # ItemsAdder collectible shelf with 1-4 display spaces. Add any number of allowed item IDs.
+  # The active GUI slots and display positions are automatically centered for display-count.
+  # The offsets are local to the furniture entity and rotate with its facing direction.
+  # itemsadder_shelf:
+  #   provider: itemsadder
+  #   type: shelf
+  #   id: mynamespace:long_shelf
+  #   allowed-items:
+  #     mode: whitelist # whitelist accepts only listed IDs; blacklist rejects listed IDs.
+  #     items:
+  #       - mynamespace:funko_one
+  #       - mynamespace:funko_two
+  #       - mynamespace:funko_three
+  #   gui-title: "<gold>%player_name%'s Collectible Shelf</gold>"
+  #   # PlaceholderAPI is optional; install it to use placeholders like %player_name%.
+  #   display-count: 3 # Minimum 1, maximum 4.
+  #   gui-slots: [2, 4, 6]
+  #   display-height-offset: 0.0 # Adds to each display's Y offset; negative lowers them.
+  #   display-spacing: 0.0 # Adds to the baked-in gap, in blocks; the group stays centered.
+  #   display-center-offset: 0.0 # Shifts the display group along the shelf length.
+  #   display-depth-offset: 0.0 # Moves the group forward/back along local Z.
+  #   display-scale: 1.4
+
+  # Nexo block or furniture. Custom blocks can specify a carrier material if needed.
+  # nexo_block:
+  #   provider: nexo
+  #   type: block
+  #   id: marble_block
+  #   carrier-materials: [NOTE_BLOCK, MUSHROOM_STEM]
+  #   display-height-offset: 0.0
+  #   display-scale: 1.0
+  # nexo_furniture:
+  #   provider: nexo
+  #   type: furniture
+  #   id: display_stand
+  #   display-height-offset: 0.0
+  #   display-scale: 1.0
+
+  # CraftEngine block/furniture ID. Set material or carrier-materials when the API
+  # cannot identify the placed custom state in your installed CraftEngine version.
+  # craftengine_block:
+  #   provider: craftengine
+  #   type: block
+  #   id: default:marble_block
+  #   material: NOTE_BLOCK
+  #   display-height-offset: 0.0
+  #   display-scale: 1.0
+  # craftengine_furniture:
+  #   provider: craftengine
+  #   type: furniture
+  #   id: default:display_stand
+  #   display-height-offset: 0.0
+  #   display-scale: 1.0
+
+# Every message uses MiniMessage. The prefix is prepended automatically.
+prefix: "<gradient:#ffd700:#b8860b>[P-Pedestals]</gradient>"
